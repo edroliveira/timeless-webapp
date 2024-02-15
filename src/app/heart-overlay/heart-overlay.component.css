@@ -1,0 +1,29 @@
+.overlay {
+    position: fixed; /* Sit on top of the page content */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 143, 171, 0.5); /* Black background with opacity */
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer;
+}
+
+.heart-icon {
+    position: absolute;
+    left: calc(50% - 60px);
+    top: calc(50% - 60px);
+    width: 120px;
+    height: 120px;
+    margin: auto;
+    filter: invert(79%) sepia(37%) saturate(2315%) hue-rotate(296deg) brightness(103%) contrast(101%);
+    transition: transform .2s;
+}
+
+.heart-icon:hover {
+    -ms-transform: scale(1.2);
+        -webkit-transform: scale(1.2);
+        transform: scale(1.2);
+}
