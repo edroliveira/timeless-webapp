@@ -1,0 +1,48 @@
+.global-wrapper {
+    width: calc(100% - 20px);
+    margin: auto;
+}
+
+.top-container {
+    margin: auto;
+    padding-top: 100px;
+    text-align: center;
+}
+
+.title {
+    font-size: 55px;
+    font-weight: 600;
+    color: rgb(204, 114, 137);
+}
+
+.top-img {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    margin-top: 30px;
+    border-radius: 30px;
+}
+
+.first-paragraph {
+    max-width: 850px;
+    margin: auto;
+    margin-top: 30px;
+}
+
+.first-paragraph p {
+    font-size: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+    .top-container {
+        padding-top: 40px;
+    }
+
+    .title {
+        font-size: 40px;
+    }
+
+    .first-paragraph p {
+        text-align: justify;
+    }
+}

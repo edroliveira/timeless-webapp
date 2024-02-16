@@ -8,7 +8,6 @@ import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animati
   templateUrl: './heart-overlay.component.html',
   styleUrl: './heart-overlay.component.css',
   animations: [
-    fadeInOnEnterAnimation(),
     fadeOutOnLeaveAnimation()
   ]
 })
