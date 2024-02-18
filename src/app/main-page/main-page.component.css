@@ -1,3 +1,20 @@
+.edit-icon {
+    width: 40px;
+    height: 40px;
+    margin: 10px 10px 0 0;
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+    filter: invert(100%) sepia(5%) saturate(128%) hue-rotate(332deg) brightness(114%) contrast(89%);
+    transition: transform .2s;
+}
+
+.edit-icon:hover {
+    -ms-transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+    filter: invert(79%) sepia(37%) saturate(2315%) hue-rotate(296deg) brightness(103%) contrast(101%);
+}
 .global-wrapper {
     width: calc(100% - 20px);
     margin: auto;
@@ -31,6 +48,15 @@
 
 .first-paragraph p {
     font-size: 20px;
+}
+
+
+.content-container {
+    width: calc(100% - 200px);
+    margin: auto;
+    padding: 20px;
+    background-color: rgba(255, 143, 171, 0.2);
+    border-radius: 30px;
 }
 
 @media only screen and (max-width: 600px) {

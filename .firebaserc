@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "timeless-nat": {
+      "hosting": {
+        "timeless-webapp": [
+          "timeless-nat"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "timeless-nat"
+  }
+}

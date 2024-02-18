@@ -1,9 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { FirebaseApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { RouterOutlet } from '@angular/router';
-import { YouTubePlayer } from '@angular/youtube-player';
-import { HeartOverlayComponent } from './heart-overlay/heart-overlay.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MainPageComponent } from './main-page/main-page.component';
+import { environment } from '../environments/environment.development';
+import { Firestore, collection, getDocs } from '@angular/fire/firestore';
 
 
 @Component({
@@ -11,23 +10,22 @@ import { MainPageComponent } from './main-page/main-page.component';
   standalone: true,
   imports: [
     RouterOutlet,
-    YouTubePlayer,
-    HeartOverlayComponent,
-    MainPageComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-  showContent: boolean = false;
-  videoId: string = 'osmzwWw4RYM';
-  playerVars = { autoplay: 0 }
+  firestore = inject(Firestore);
 
-  playVideo() {
-    var iframe = document.getElementsByTagName("iframe")[0].contentWindow;
-    iframe!.postMessage('{"event":"command","func":"' + 'playVideo' + '","args":""}', '*');
-    this.showContent = true;
+  constructor(
+    
+  ) { }
+
+  ngOnInit(): void {
+    getDocs(collection(this.firestore, "testPath")).then((response) => {
+      console.log(response.docs)
+    });
   }
 
 }
