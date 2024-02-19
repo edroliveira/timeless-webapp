@@ -15,6 +15,7 @@
     transform: scale(1.2);
     filter: invert(79%) sepia(37%) saturate(2315%) hue-rotate(296deg) brightness(103%) contrast(101%);
 }
+
 .global-wrapper {
     width: calc(100% - 20px);
     margin: auto;

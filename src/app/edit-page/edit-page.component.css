@@ -1,0 +1,31 @@
+.edit-content {
+    width: 300px;
+    margin: auto;
+    margin-top: 20px;
+    padding: 20px;
+    text-align: start;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+}
+
+.edit-content button {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.img-selector-wrapper {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.hidden-file-selector {
+    display: none;
+}
+
+.check-icon {
+    width: 40px;
+    height: 40px;
+    filter: invert(48%) sepia(36%) saturate(663%) hue-rotate(88deg) brightness(95%) contrast(86%);
+    vertical-align: text-bottom;
+}

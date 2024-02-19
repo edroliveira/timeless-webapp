@@ -1,1 +1,38 @@
-<app-signup></app-signup>
+<app-signup [currentUser]="currentUser" (login)="logInWithGoogle()"></app-signup>
+
+@if (currentUser) {
+    <div class="edit-content">
+        <h2> Selecionar: </h2>
+        <div class="img-selector-wrapper">
+            <input type="file" (change)="onFileSelected($event, 'main')" class="hidden-file-selector" #mainFile>
+            <button mat-raised-button (click)="mainFile.click()"> Imagem principal </button>
+            @if (mainFileBlob) {
+            <img src="assets/images/svg/check.svg" alt="Check icon" class="check-icon">
+            }
+        </div>
+        <mat-divider></mat-divider>
+        <div class="img-selector-wrapper">
+            <input type="file" (change)="onFileSelected($event, 'first')" class="hidden-file-selector" #firstFile>
+            <button mat-raised-button (click)="firstFile.click()"> Imagem 1 </button>
+            @if (firstFileBlob) {
+            <img src="assets/images/svg/check.svg" alt="Check icon" class="check-icon">
+            }
+        </div>
+        <mat-divider></mat-divider>
+        <div class="img-selector-wrapper">
+            <input type="file" (change)="onFileSelected($event, 'second')" class="hidden-file-selector" #secondFile>
+            <button mat-raised-button (click)="secondFile.click()"> Imagem 2 </button>
+            @if (secondFileBlob) {
+            <img src="assets/images/svg/check.svg" alt="Check icon" class="check-icon">
+            }
+        </div>
+        <mat-divider></mat-divider>
+        <div class="img-selector-wrapper">
+            <input type="file" (change)="onFileSelected($event, 'third')" class="hidden-file-selector" #thirdFile>
+            <button mat-raised-button (click)="thirdFile.click()"> Imagem 3 </button>
+            @if (thirdFileBlob) {
+            <img src="assets/images/svg/check.svg" alt="Check icon" class="check-icon">
+            }
+        </div>
+    </div>
+}

@@ -1,26 +1,34 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
+import { Firestore } from '@angular/fire/firestore';
+import { GoogleAuthProvider, User, getAuth, signInWithPopup } from 'firebase/auth';
+import { MatButtonModule } from '@angular/material/button';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [],
+  imports: [
+    MatButtonModule
+  ],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css'
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent {
+  firestore = inject(Firestore);
+  
+  @Input() currentUser!: User;
+  @Output() login: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
-    private auth: AuthService
+    private router: Router
   ) { }
 
-  async handleAuth() {
-    const response = await this.auth.signInWithGithub();
-    console.log(response);
+  logInWithGoogle() {
+    this.login.emit();
   }
 
-  ngOnInit(): void {
-    console.log(this.auth.currentUser);
+  backToMainPage() {
+    this.router.navigate(['/']);
   }
 
 }

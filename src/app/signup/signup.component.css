@@ -1,0 +1,45 @@
+.goback-icon {
+    width: 40px;
+    height: 40px;
+    margin: 10px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    cursor: pointer;
+    filter: invert(100%) sepia(5%) saturate(128%) hue-rotate(332deg) brightness(114%) contrast(89%);
+    transition: transform .2s;
+}
+
+.goback-icon:hover {
+    -ms-transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+    filter: invert(79%) sepia(37%) saturate(2315%) hue-rotate(296deg) brightness(103%) contrast(101%);
+}
+
+.login-wrapper {
+    width: 300px;
+    margin: auto;
+    margin-top: 50px;
+    padding: 20px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+}
+
+.profile-pic {
+    border-radius: 50%;
+}
+
+.text {
+    font-size: 20px;
+}
+
+.msg {
+    margin-top: 10px;
+}
+
+.login-btn {
+    margin-top: 20px;
+    font-size: 20px;
+}

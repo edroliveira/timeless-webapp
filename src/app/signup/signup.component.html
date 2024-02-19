@@ -1,1 +1,17 @@
-<button (click)="handleAuth()"> SignUp With GitHub </button>
+<div>
+    <span> <img src="assets/images/svg/arrow-left.svg" class="goback-icon" (click)="backToMainPage()" /></span>
+</div>
+
+<div class="login-wrapper">
+    @if (currentUser) {
+        <div>
+            <img class="profile-pic" [src]="currentUser.photoURL" />
+        </div>
+        <span class="text"> Olá, <b>{{ currentUser.displayName }}</b>! </span>
+        <br />
+        <span class="text msg"> O modo de Edição está <span style="color: rgb(58, 150, 58);">ativado</span> </span>
+    } @else {
+        <span class="text"> Para alterar os componentes do site, faça login com o <b>Google</b>! </span>
+        <button mat-raised-button color="primary" class="login-btn" (click)="logInWithGoogle()"> Entrar com o Google </button>
+    }
+</div>
