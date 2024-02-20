@@ -30,7 +30,7 @@ export class MainPageComponent implements OnInit {
   storage = inject(Storage);
   filePath: string = '/images/';
   showContent: boolean = false;
-  videoId: string = 'osmzwWw4RYM';
+  videoId!: string;
   playerVars = { autoplay: 0 }
 
   topImgSrc!: string;
@@ -55,7 +55,13 @@ export class MainPageComponent implements OnInit {
     private router: Router,
     private firestoreService: FirestoreService
   ) {
-    this.pageText = this.firestoreService.getPageText();
+    this.firestoreService.getPageText().subscribe(pageText => {
+      this.pageText = pageText;
+    });
+
+    this.firestoreService.getMusicUrl().subscribe(musicVideoId => {
+      this.videoId = musicVideoId;
+    });
   }
 
   ngOnInit(): void {

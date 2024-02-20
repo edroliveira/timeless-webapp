@@ -44,6 +44,7 @@ export class EditPageComponent {
 
   isLoading: boolean = false;
 
+  musicVideoId = new FormControl('');
   topPr = new FormControl('');
   firstRowPr = new FormControl('');
   secondRowPr = new FormControl('');
@@ -99,9 +100,9 @@ export class EditPageComponent {
     this.isLoading = true;
     await this.uploadImages();
     await this.uploadText();
+    await this.uploadMusicVideoId();
     alert('Alterações salvas com sucesso!');
     this.isLoading = false;
-
   }
 
   async uploadImages() {
@@ -136,7 +137,13 @@ export class EditPageComponent {
     try {
       await this.firestoreService.updateTexts(pageText);
     } catch (error) {
-      alert('Ocorreu um erro ao fazer upload das imagens. Tente novamente mais tarde');
+      alert('Ocorreu um erro ao fazer upload dos textos. Tente novamente mais tarde');
+    }
+  }
+
+  async uploadMusicVideoId() {
+    if (this.musicVideoId.value) {
+      await this.firestoreService.updateMusicVideoId(this.musicVideoId.value);
     }
   }
 

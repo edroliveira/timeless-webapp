@@ -6,7 +6,14 @@
             <mat-progress-bar mode="indeterminate"></mat-progress-bar>
         }
 
-        <h2> Selecionar: </h2>
+        <h2> Música: </h2>
+        <mat-form-field appearance="fill" class="field">
+            <mat-label>Código de vídeo do YouTube</mat-label>
+            <input matInput [formControl]="musicVideoId" placeholder="Exemplo: p9d5HMNBFoE">
+        </mat-form-field>
+
+        <br /><br />
+        <h2> Imagens: </h2>
         <div class="img-selector-wrapper">
             <input type="file" (change)="onFileSelected($event, 'top')" class="hidden-file-selector" #mainFile>
             <button mat-raised-button (click)="mainFile.click()" [disabled]="isLoading"> Imagem principal </button>
@@ -39,32 +46,24 @@
             }
         </div>
 
-        <br/><br/>
-        <h2> Editar Textos: </h2>
-        <div>
-            <mat-form-field appearance="outline" class="field">
-                <mat-label>Texto superior</mat-label>
-                <textarea matInput [formControl]="topPr"></textarea>
-            </mat-form-field>
-        </div>
-        <div>
-            <mat-form-field appearance="outline" class="field">
-                <mat-label>Parágrafo 1</mat-label>
-                <textarea matInput [formControl]="firstRowPr"></textarea>
-            </mat-form-field>
-        </div>
-        <div>
-            <mat-form-field appearance="outline" class="field">
-                <mat-label>Parágrafo 2</mat-label>
-                <textarea matInput [formControl]="secondRowPr"></textarea>
-            </mat-form-field>
-        </div>
-        <div>
-            <mat-form-field appearance="outline" class="field">
-                <mat-label>Parágrafo 3</mat-label>
-                <textarea matInput [formControl]="thirdRowPr"></textarea>
-            </mat-form-field>
-        </div>
+        <br /><br />
+        <h2> Textos: </h2>
+        <mat-form-field appearance="outline" class="field">
+            <mat-label>Texto superior</mat-label>
+            <textarea matInput [formControl]="topPr"></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="field">
+            <mat-label>Parágrafo 1</mat-label>
+            <textarea matInput [formControl]="firstRowPr"></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="field">
+            <mat-label>Parágrafo 2</mat-label>
+            <textarea matInput [formControl]="secondRowPr"></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="field">
+            <mat-label>Parágrafo 3</mat-label>
+            <textarea matInput [formControl]="thirdRowPr"></textarea>
+        </mat-form-field>
     </div>
 
     <div class="update-wrapper">
