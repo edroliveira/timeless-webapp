@@ -26,14 +26,24 @@ export class FirestoreService {
     }
 
     async updateTexts(pageText: PageText) {
-        await this.paragraphsRef.doc(this.paragraphsCollectionId).update(
-            {
-                topPr: pageText.topPr,
-                firstRowPr: pageText.firstRowPr,
-                secondRowPr: pageText.secondRowPr,
-                thirdRowPr: pageText.thirdRowPr,
-            }
-        );
+        let data: Object = {};
+
+        if (pageText.topPr) {
+            Object.assign(data, {topPr: pageText.topPr})
+        }
+        if (pageText.firstRowPr) {
+            Object.assign(data, {firstRowPr: pageText.firstRowPr})
+        }
+        if (pageText.secondRowPr) {
+            Object.assign(data, {secondRowPr: pageText.secondRowPr})
+        }
+        if (pageText.thirdRowPr) {
+            Object.assign(data, {thirdRowPr: pageText.thirdRowPr})
+        }
+
+        if (Object.keys(data).length > 0) {
+            await this.paragraphsRef.doc(this.paragraphsCollectionId).update(data);
+        }
     }
 
 }
