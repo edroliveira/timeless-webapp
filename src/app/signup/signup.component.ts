@@ -1,6 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
-import { Firestore } from '@angular/fire/firestore';
-import { GoogleAuthProvider, User, getAuth, signInWithPopup } from 'firebase/auth';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { User } from 'firebase/auth';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 
@@ -14,7 +13,6 @@ import { Router } from '@angular/router';
   styleUrl: './signup.component.css'
 })
 export class SignupComponent {
-  firestore = inject(Firestore);
   
   @Input() currentUser!: User;
   @Output() login: EventEmitter<any> = new EventEmitter<any>();

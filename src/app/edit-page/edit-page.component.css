@@ -29,3 +29,15 @@
     filter: invert(48%) sepia(36%) saturate(663%) hue-rotate(88deg) brightness(95%) contrast(86%);
     vertical-align: text-bottom;
 }
+
+.update-wrapper {
+    width: 100%;
+    text-align: center;
+}
+
+.update-btn {
+    font-size: 20px;
+    margin-top: 20px;
+    color: white;
+    background-color: green;
+}
