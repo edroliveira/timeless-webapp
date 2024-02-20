@@ -92,6 +92,11 @@
         display: block;
     }
 
+    .invert {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
     .row-img {
         width: calc(100% - 40px);
         max-height: none;
