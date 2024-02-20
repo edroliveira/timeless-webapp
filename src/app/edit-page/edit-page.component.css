@@ -30,6 +30,10 @@
     vertical-align: text-bottom;
 }
 
+.field {
+    width: 100%;
+}
+
 .update-wrapper {
     width: 100%;
     text-align: center;

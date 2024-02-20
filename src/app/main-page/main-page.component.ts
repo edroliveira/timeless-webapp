@@ -5,6 +5,11 @@ import { HeartOverlayComponent } from '../heart-overlay/heart-overlay.component'
 import { YouTubePlayer } from '@angular/youtube-player';
 import { MatDividerModule } from '@angular/material/divider';
 import { Storage, getDownloadURL, ref } from '@angular/fire/storage';
+import { Firestore } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { map } from 'rxjs';
+import { FirestoreService } from '../services/firestore.service';
+import { PageText } from '../model/page-text';
 
 @Component({
   selector: 'app-main-page',
@@ -32,7 +37,13 @@ export class MainPageComponent implements OnInit {
   firstRowImgSrc!: string;
   secondRowImgSrc!: string;
   thirdRowImgSrc!: string;
-  loremIpsum: string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget ex eu lacus tincidunt ultrices id imperdiet ante. Ut vitae mi lectus. Vestibulum ut ex maximus tortor elementum volutpat. Nunc pretium semper aliquam. Nullam id eleifend tellus. Praesent hendrerit augue ac mi suscipit, vel tempor arcu vestibulum. Nam laoreet laoreet lorem et tempus. Vestibulum consectetur sit amet tortor ultrices rhoncus. Sed vehicula sem id iaculis mattis. Sed quis tellus sit amet nulla tincidunt lobortis et a elit. Vivamus dapibus sem orci, eget imperdiet felis feugiat in. In varius ante sit amet risus hendrerit gravida. Praesent in efficitur velit. Nulla elit augue, eleifend nec mauris et, consectetur tincidunt nunc.';
+
+  pageText!: PageText;
+
+  topPr!: string;
+  firstRowPr!: string;
+  secondRowPr!: string;
+  thirdRowPr!: string;
 
   playVideo() {
     var iframe = document.getElementsByTagName("iframe")[0].contentWindow;
@@ -41,18 +52,21 @@ export class MainPageComponent implements OnInit {
   }
 
   constructor(
-    private router: Router
-  ) { }
+    private router: Router,
+    private firestoreService: FirestoreService
+  ) {
+    this.pageText = this.firestoreService.getPageText();
+  }
 
   ngOnInit(): void {
-    this.getDataFromStorage();
+    this.getImagesFromStorage();
   }
 
   openEditPage() {
     this.router.navigate(['/edit']);
   }
 
-  getDataFromStorage() {
+  getImagesFromStorage() {
     const storageRefTop = ref(this.storage, this.filePath + 'top');
     getDownloadURL(storageRefTop).then(resp => this.topImgSrc = resp);
 

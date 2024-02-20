@@ -5,17 +5,27 @@ import { Storage, getDownloadURL, ref, uploadBytes } from '@angular/fire/storage
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatFormField } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 import { GoogleAuthProvider, User, signInWithPopup } from 'firebase/auth';
 import { getAuth } from '@angular/fire/auth';
+import { PageText } from '../model/page-text';
+import { FirestoreService } from '../services/firestore.service';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-page',
   standalone: true,
   imports: [
     SignupComponent,
+    ReactiveFormsModule,
     MatButtonModule,
     MatDividerModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatFormField,
+    MatInputModule,
+    MatIconModule
   ],
   templateUrl: './edit-page.component.html',
   styleUrl: './edit-page.component.css'
@@ -34,7 +44,14 @@ export class EditPageComponent {
 
   isLoading: boolean = false;
 
-  constructor() { }
+  topPr = new FormControl('');
+  firstRowPr = new FormControl('');
+  secondRowPr = new FormControl('');
+  thirdRowPr = new FormControl('');
+
+  constructor(
+    private firestoreService: FirestoreService
+  ) { }
 
   logInWithGoogle() {
     const auth = getAuth();
@@ -78,9 +95,13 @@ export class EditPageComponent {
     console.log(dowloadUrl);
   }
 
-  saveChanges() {
+  async saveChanges() {
     this.isLoading = true;
-    this.uploadImages();
+    await this.uploadImages();
+    await this.uploadText();
+    alert('Alterações salvas com sucesso!');
+    this.isLoading = false;
+
   }
 
   async uploadImages() {
@@ -98,12 +119,24 @@ export class EditPageComponent {
         await this.addDataToStorage(this.thirdFileBlob, 'third');
       }
 
-      this.isLoading = false;
-      alert('Alterações salvas com sucesso!');
     } catch (error) {
       console.error(error);
       alert('Ocorreu um erro ao fazer upload das imagens. Tente novamente mais tarde');
-      this.isLoading = false;
+    }
+  }
+
+  async uploadText() {
+    const pageText = new PageText(
+      this.topPr.value!,
+      this.firstRowPr.value!,
+      this.secondRowPr.value!,
+      this.thirdRowPr.value!
+    );
+
+    try {
+      await this.firestoreService.updateTexts(pageText);
+    } catch (error) {
+      alert('Ocorreu um erro ao fazer upload das imagens. Tente novamente mais tarde');
     }
   }
 

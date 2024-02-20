@@ -38,6 +38,33 @@
             <img src="assets/images/svg/check.svg" alt="Check icon" class="check-icon">
             }
         </div>
+
+        <br/><br/>
+        <h2> Editar Textos: </h2>
+        <div>
+            <mat-form-field appearance="outline" class="field">
+                <mat-label>Texto superior</mat-label>
+                <textarea matInput [formControl]="topPr"></textarea>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="outline" class="field">
+                <mat-label>Parágrafo 1</mat-label>
+                <textarea matInput [formControl]="firstRowPr"></textarea>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="outline" class="field">
+                <mat-label>Parágrafo 2</mat-label>
+                <textarea matInput [formControl]="secondRowPr"></textarea>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="outline" class="field">
+                <mat-label>Parágrafo 3</mat-label>
+                <textarea matInput [formControl]="thirdRowPr"></textarea>
+            </mat-form-field>
+        </div>
     </div>
 
     <div class="update-wrapper">
