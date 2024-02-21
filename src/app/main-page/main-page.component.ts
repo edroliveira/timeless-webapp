@@ -1,15 +1,12 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { fadeInOnEnterAnimation } from 'angular-animations';
 import { HeartOverlayComponent } from '../heart-overlay/heart-overlay.component';
 import { YouTubePlayer } from '@angular/youtube-player';
 import { MatDividerModule } from '@angular/material/divider';
-import { Storage, getDownloadURL, ref } from '@angular/fire/storage';
-import { Firestore } from '@angular/fire/firestore';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { map } from 'rxjs';
 import { FirestoreService } from '../services/firestore.service';
 import { PageText } from '../model/page-text';
+import { PageImage } from '../model/page-image';
 
 @Component({
   selector: 'app-main-page',
@@ -26,24 +23,13 @@ import { PageText } from '../model/page-text';
   ]
 })
 export class MainPageComponent implements OnInit {
-
-  storage = inject(Storage);
-  filePath: string = '/images/';
+  
   showContent: boolean = false;
   videoId!: string;
   playerVars = { autoplay: 0 }
 
-  topImgSrc!: string;
-  firstRowImgSrc!: string;
-  secondRowImgSrc!: string;
-  thirdRowImgSrc!: string;
-
+  images!: PageImage;
   pageText!: PageText;
-
-  topPr!: string;
-  firstRowPr!: string;
-  secondRowPr!: string;
-  thirdRowPr!: string;
 
   playVideo() {
     var iframe = document.getElementsByTagName("iframe")[0].contentWindow;
@@ -65,6 +51,8 @@ export class MainPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.firestoreService.fetchParagraphs();
+    this.firestoreService.fetchMusicVideoId();
     this.getImagesFromStorage();
   }
 
@@ -73,17 +61,7 @@ export class MainPageComponent implements OnInit {
   }
 
   getImagesFromStorage() {
-    const storageRefTop = ref(this.storage, this.filePath + 'top');
-    getDownloadURL(storageRefTop).then(resp => this.topImgSrc = resp);
-
-    const storageRefFirst = ref(this.storage, this.filePath + 'first');
-    getDownloadURL(storageRefFirst).then(resp => this.firstRowImgSrc = resp);
-
-    const storageRefSecond = ref(this.storage, this.filePath + 'second');
-    getDownloadURL(storageRefSecond).then(resp => this.secondRowImgSrc = resp);
-
-    const storageRefThird = ref(this.storage, this.filePath + 'third');
-    getDownloadURL(storageRefThird).then(resp => this.thirdRowImgSrc = resp);
+    this.images = this.firestoreService.getImages();
   }
 
 }

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
+import { fadeOutOnLeaveAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-heart-overlay',
