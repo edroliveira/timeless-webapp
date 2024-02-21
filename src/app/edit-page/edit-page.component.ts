@@ -32,9 +32,6 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 })
 export class EditPageComponent {
 
-  firestore = inject(Firestore);
-  storage = inject(Storage);
-  filePath: string = '/images/';
   currentUser!: User;
 
   topFileBlob!: Blob;
@@ -89,13 +86,6 @@ export class EditPageComponent {
     };
   }
 
-  async addDataToStorage(imgBlob: Blob, imgPath: string) {
-    const storageRef = ref(this.storage, this.filePath + imgPath);
-    const uploadTask = await uploadBytes(storageRef, imgBlob);
-    const dowloadUrl = getDownloadURL(uploadTask.ref);
-    console.log(dowloadUrl);
-  }
-
   async saveChanges() {
     this.isLoading = true;
     await this.uploadImages();
@@ -108,16 +98,16 @@ export class EditPageComponent {
   async uploadImages() {
     try {
       if (this.topFileBlob) {
-        await this.addDataToStorage(this.topFileBlob, 'top');
+        await this.firestoreService.addDataToStorage(this.topFileBlob, 'top');
       }
       if (this.firstFileBlob) {
-        await this.addDataToStorage(this.firstFileBlob, 'first');
+        await this.firestoreService.addDataToStorage(this.firstFileBlob, 'first');
       }
       if (this.secondFileBlob) {
-        await this.addDataToStorage(this.secondFileBlob, 'second');
+        await this.firestoreService.addDataToStorage(this.secondFileBlob, 'second');
       }
       if (this.thirdFileBlob) {
-        await this.addDataToStorage(this.thirdFileBlob, 'third');
+        await this.firestoreService.addDataToStorage(this.thirdFileBlob, 'third');
       }
 
     } catch (error) {

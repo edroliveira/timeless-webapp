@@ -21,10 +21,10 @@
             <span class="reenie-beanie-regular title"> All's fair in love and poetry </span>
         </div>
 
-        @if (showContent) {
+        @if (showContent && images) {
             <div [@fadeInOnEnter]>
                 <div>
-                    <img [src]="topImgSrc" class="top-img" />
+                    <img [src]="images.topImgSrc" class="top-img" />
                 </div>
 
                 <img src="assets/images/svg/heart-empty.svg" class="heart-empty-icon" />
@@ -36,12 +36,12 @@
         }
     </div>
 
-    @if (showContent) {
+    @if (showContent && images) {
         <mat-divider style="margin: 40px auto 40px auto; width: 50%;"></mat-divider>
         <div [@fadeInOnEnter] class="content-container">
             <div class="row" id="row-1">
                 <div>
-                    <img [src]="firstRowImgSrc" class="row-img" />
+                    <img [src]="images.firstRowImgSrc" class="row-img" />
                 </div>
 
                 <div class="row-paragraph">
@@ -55,13 +55,13 @@
                 </div>
 
                 <div>
-                    <img [src]="secondRowImgSrc" class="row-img" />
+                    <img [src]="images.secondRowImgSrc" class="row-img" />
                 </div>
             </div>
 
             <div class="row" id="row-2">
                 <div>
-                    <img [src]="thirdRowImgSrc" class="row-img" />
+                    <img [src]="images.thirdRowImgSrc" class="row-img" />
                 </div>
 
                 <div class="row-paragraph">

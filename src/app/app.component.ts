@@ -1,10 +1,5 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { FirebaseApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { environment } from '../environments/environment.development';
-import { Firestore, collection, getDocs } from '@angular/fire/firestore';
-import { GoogleAuthProvider, getAuth } from 'firebase/auth';
-import { Auth, AuthModule, signInWithPopup } from '@angular/fire/auth';
 
 
 @Component({
