@@ -7,11 +7,13 @@ import { MatDividerModule } from '@angular/material/divider';
 import { FirestoreService } from '../services/firestore.service';
 import { PageText } from '../model/page-text';
 import { PageImage } from '../model/page-image';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-main-page',
   standalone: true,
   imports: [
+    CommonModule,
     HeartOverlayComponent,
     YouTubePlayer,
     MatDividerModule
@@ -26,10 +28,12 @@ export class MainPageComponent implements OnInit {
   
   showContent: boolean = false;
   videoId!: string;
-  playerVars = { autoplay: 0 }
+  playerVars = { autoplay: 1 }
 
   images!: PageImage;
   pageText!: PageText;
+
+  isLoading: boolean = false;
 
   playVideo() {
     var iframe = document.getElementsByTagName("iframe")[0].contentWindow;
@@ -51,6 +55,7 @@ export class MainPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.firestoreService.fetchParagraphs();
     this.firestoreService.fetchMusicVideoId();
     this.getImagesFromStorage();
@@ -62,6 +67,10 @@ export class MainPageComponent implements OnInit {
 
   getImagesFromStorage() {
     this.images = this.firestoreService.getImages();
+  }
+
+  wait() {
+
   }
 
 }

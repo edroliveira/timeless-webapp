@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { fadeOutOnLeaveAnimation } from 'angular-animations';
 
 @Component({
@@ -13,6 +13,7 @@ import { fadeOutOnLeaveAnimation } from 'angular-animations';
 })
 export class HeartOverlayComponent {
 
+  @Input() isLoading!: boolean;
   @Output() playSong: EventEmitter<any> = new EventEmitter();
 
   dismiss: boolean = false;
