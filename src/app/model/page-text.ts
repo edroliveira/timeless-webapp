@@ -4,5 +4,6 @@ export class PageText {
         public firstRowPr: string,
         public secondRowPr: string,
         public thirdRowPr: string,
+        public textColor: string
     ) { }
 }

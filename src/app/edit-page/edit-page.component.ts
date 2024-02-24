@@ -13,6 +13,7 @@ import { getAuth } from '@angular/fire/auth';
 import { PageText } from '../model/page-text';
 import { FirestoreService } from '../services/firestore.service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 @Component({
   selector: 'app-edit-page',
@@ -25,13 +26,15 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
     MatProgressBarModule,
     MatFormField,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
+    ColorPickerModule
   ],
   templateUrl: './edit-page.component.html',
   styleUrl: './edit-page.component.css'
 })
 export class EditPageComponent {
 
+  isLoading: boolean = false;
   currentUser!: User;
 
   topFileBlob!: Blob;
@@ -39,21 +42,38 @@ export class EditPageComponent {
   secondFileBlob!: Blob;
   thirdFileBlob!: Blob;
 
-  isLoading: boolean = false;
-
   musicVideoId = new FormControl('');
+
   topPr = new FormControl('');
   firstRowPr = new FormControl('');
   secondRowPr = new FormControl('');
   thirdRowPr = new FormControl('');
+  textColor!: string;
+
+  backgroundColor!: string;
 
   constructor(
     private firestoreService: FirestoreService
-  ) { }
+  ) {
+    this.firestoreService.getPageText().subscribe(pageText => {
+      this.topPr.setValue(pageText.topPr);
+      this.firstRowPr.setValue(pageText.firstRowPr);
+      this.secondRowPr.setValue(pageText.secondRowPr);
+      this.thirdRowPr.setValue(pageText.thirdRowPr);
+      this.textColor = pageText.textColor;
+    });
+
+    this.firestoreService.getMusicUrl().subscribe(musicVideoId => {
+      this.musicVideoId.setValue(musicVideoId);
+    });
+
+    this.firestoreService.getBackgroundColor().subscribe(color => {
+      this.backgroundColor = color;
+    });
+  }
 
   logInWithGoogle() {
-    const auth = getAuth();
-    signInWithPopup(auth, new GoogleAuthProvider()).then(resp => {
+    signInWithPopup(getAuth(), new GoogleAuthProvider()).then(resp => {
       this.currentUser = resp.user;
     }).catch(err => {
       console.error(err);
@@ -91,6 +111,7 @@ export class EditPageComponent {
     await this.uploadImages();
     await this.uploadText();
     await this.uploadMusicVideoId();
+    await this.uploadBackgroundColor();
     alert('Alterações salvas com sucesso!');
     this.isLoading = false;
   }
@@ -121,7 +142,8 @@ export class EditPageComponent {
       this.topPr.value!,
       this.firstRowPr.value!,
       this.secondRowPr.value!,
-      this.thirdRowPr.value!
+      this.thirdRowPr.value!,
+      this.textColor
     );
 
     try {
@@ -134,6 +156,12 @@ export class EditPageComponent {
   async uploadMusicVideoId() {
     if (this.musicVideoId.value) {
       await this.firestoreService.updateMusicVideoId(this.musicVideoId.value);
+    }
+  }
+
+  async uploadBackgroundColor() {
+    if (this.backgroundColor) {
+      await this.firestoreService.updateBackgroundColor(this.backgroundColor);
     }
   }
 

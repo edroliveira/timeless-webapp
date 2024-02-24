@@ -22,6 +22,10 @@ export class FirestoreService {
     musicRef = this.firestore.collection('music');
     musicCollectionId = 'EX3fT9BsaZT7YX5XbMpt';
 
+    $backgroundColorSubject = new Subject<string>();
+    backgroundRef = this.firestore.collection('background');
+    backgroundCollectionId = 'Gc5CIJ3QbVu7RjQmcQfX';
+
     constructor() { }
 
     fetchParagraphs(): void {
@@ -30,7 +34,8 @@ export class FirestoreService {
                 data.payload.get('topPr'),
                 data.payload.get('firstRowPr'),
                 data.payload.get('secondRowPr'),
-                data.payload.get('thirdRowPr')
+                data.payload.get('thirdRowPr'),
+                data.payload.get('textColor')
             );
 
             this.$pageTextSubject.next(pageText);
@@ -40,6 +45,12 @@ export class FirestoreService {
     fetchMusicVideoId(): void {
         this.musicRef.doc(this.musicCollectionId).snapshotChanges().subscribe(data => {
             this.$musicIdSubject.next(data.payload.get('youtubeVideoUrl'));
+        });
+    }
+
+    fetchBackground(): void {
+        this.backgroundRef.doc(this.backgroundCollectionId).snapshotChanges().subscribe(data => {
+            this.$backgroundColorSubject.next(data.payload.get('color'));
         });
     }
 
@@ -69,20 +80,27 @@ export class FirestoreService {
         return this.$musicIdSubject;
     }
 
+    getBackgroundColor(): Subject<string> {
+        return this.$backgroundColorSubject;
+    }
+
     async updateTexts(pageText: PageText) {
         let data: Object = {};
 
         if (pageText.topPr) {
-            Object.assign(data, {topPr: pageText.topPr})
+            Object.assign(data, {topPr: pageText.topPr});
         }
         if (pageText.firstRowPr) {
-            Object.assign(data, {firstRowPr: pageText.firstRowPr})
+            Object.assign(data, {firstRowPr: pageText.firstRowPr});
         }
         if (pageText.secondRowPr) {
-            Object.assign(data, {secondRowPr: pageText.secondRowPr})
+            Object.assign(data, {secondRowPr: pageText.secondRowPr});
         }
         if (pageText.thirdRowPr) {
-            Object.assign(data, {thirdRowPr: pageText.thirdRowPr})
+            Object.assign(data, {thirdRowPr: pageText.thirdRowPr});
+        }
+        if (pageText.textColor) {
+            Object.assign(data, {textColor: pageText.textColor});
         }
 
         if (Object.keys(data).length > 0) {
@@ -92,6 +110,10 @@ export class FirestoreService {
 
     async updateMusicVideoId(videoId: string) {
         await this.musicRef.doc(this.musicCollectionId).update({ youtubeVideoUrl: videoId });
+    }
+
+    async updateBackgroundColor(color: string) {
+        await this.backgroundRef.doc(this.backgroundCollectionId).update({ color: color });
     }
 
     async addDataToStorage(imgBlob: Blob, imgPath: string) {

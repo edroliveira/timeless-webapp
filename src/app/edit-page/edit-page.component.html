@@ -13,6 +13,10 @@
         </mat-form-field>
 
         <br /><br />
+        <h2> Cor do Plano de Fundo </h2>
+        <input [(colorPicker)]="backgroundColor" [style.background]="backgroundColor" class="color-picker" />
+
+        <br /><br />
         <h2> Imagens: </h2>
         <div class="img-selector-wrapper">
             <input type="file" (change)="onFileSelected($event, 'top')" class="hidden-file-selector" #mainFile>
@@ -64,6 +68,10 @@
             <mat-label>Parágrafo 3</mat-label>
             <textarea matInput [formControl]="thirdRowPr"></textarea>
         </mat-form-field>
+
+        <br /><br />
+        <h2> Cor do Texto: </h2>
+        <input [(colorPicker)]="textColor" [style.background]="textColor" class="color-picker" />
     </div>
 
     <div class="update-wrapper">

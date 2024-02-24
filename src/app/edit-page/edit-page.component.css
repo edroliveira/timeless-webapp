@@ -3,6 +3,7 @@
     margin: auto;
     margin-top: 20px;
     padding: 20px;
+    padding-bottom: 55px;
     text-align: start;
     background-color: rgba(0, 0, 0, 0.1);
     border-radius: 30px;
@@ -11,6 +12,13 @@
 .edit-content button {
     font-size: 20px;
     margin-bottom: 10px;
+}
+
+.color-picker {
+    height: 30px;
+    border: 2px solid #a7a7a7;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
 .img-selector-wrapper {

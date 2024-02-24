@@ -28,18 +28,13 @@ export class MainPageComponent implements OnInit {
   
   showContent: boolean = false;
   videoId!: string;
+  backgroundColor!: string;
   playerVars = { autoplay: 1 }
 
   images!: PageImage;
   pageText!: PageText;
 
   isLoading: boolean = false;
-
-  playVideo() {
-    var iframe = document.getElementsByTagName("iframe")[0].contentWindow;
-    iframe!.postMessage('{"event":"command","func":"' + 'playVideo' + '","args":""}', '*');
-    this.showContent = true;
-  }
 
   constructor(
     private router: Router,
@@ -52,12 +47,17 @@ export class MainPageComponent implements OnInit {
     this.firestoreService.getMusicUrl().subscribe(musicVideoId => {
       this.videoId = musicVideoId;
     });
+
+    this.firestoreService.getBackgroundColor().subscribe(color => {
+      this.backgroundColor = color;
+    });
   }
 
   ngOnInit(): void {
     this.isLoading = true;
     this.firestoreService.fetchParagraphs();
     this.firestoreService.fetchMusicVideoId();
+    this.firestoreService.fetchBackground();
     this.getImagesFromStorage();
   }
 
@@ -69,8 +69,10 @@ export class MainPageComponent implements OnInit {
     this.images = this.firestoreService.getImages();
   }
 
-  wait() {
-
+  playVideo() {
+    var iframe = document.getElementsByTagName("iframe")[0].contentWindow;
+    iframe!.postMessage('{"event":"command","func":"' + 'playVideo' + '","args":""}', '*');
+    this.showContent = true;
   }
 
 }
