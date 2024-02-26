@@ -70,8 +70,13 @@
         </mat-form-field>
 
         <br /><br />
-        <h2> Cor do Texto: </h2>
-        <input [(colorPicker)]="textColor" [style.background]="textColor" class="color-picker" />
+        <mat-form-field>
+            <mat-label> Cor do Texto </mat-label>
+            <mat-select #textColorSelect (selectionChange)="onTextColorSelected(textColorSelect.value)">
+                <mat-option value="#000"> Preto </mat-option>
+                <mat-option value="#FFF"> Branco </mat-option>
+            </mat-select>
+        </mat-form-field>
     </div>
 
     <div class="update-wrapper">

@@ -1,12 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SignupComponent } from '../signup/signup.component';
-import { Firestore } from '@angular/fire/firestore';
-import { Storage, getDownloadURL, ref, uploadBytes } from '@angular/fire/storage';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatFormField } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select'
 import { MatIconModule } from '@angular/material/icon';
 import { GoogleAuthProvider, User, signInWithPopup } from 'firebase/auth';
 import { getAuth } from '@angular/fire/auth';
@@ -26,13 +25,14 @@ import { ColorPickerModule } from 'ngx-color-picker';
     MatProgressBarModule,
     MatFormField,
     MatInputModule,
+    MatSelectModule,
     MatIconModule,
     ColorPickerModule
   ],
   templateUrl: './edit-page.component.html',
   styleUrl: './edit-page.component.css'
 })
-export class EditPageComponent {
+export class EditPageComponent implements OnInit {
 
   isLoading: boolean = false;
   currentUser!: User;
@@ -72,6 +72,12 @@ export class EditPageComponent {
     });
   }
 
+  ngOnInit(): void {
+    this.firestoreService.fetchParagraphs();
+    this.firestoreService.fetchMusicVideoId();
+    this.firestoreService.fetchBackground();
+  }
+
   logInWithGoogle() {
     signInWithPopup(getAuth(), new GoogleAuthProvider()).then(resp => {
       this.currentUser = resp.user;
@@ -104,6 +110,10 @@ export class EditPageComponent {
           break;
       }
     };
+  }
+
+  onTextColorSelected(textColor: string) {
+    this.textColor = textColor;
   }
 
   async saveChanges() {
