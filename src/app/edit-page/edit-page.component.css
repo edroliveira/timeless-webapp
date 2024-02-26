@@ -3,7 +3,7 @@
     margin: auto;
     margin-top: 20px;
     padding: 20px;
-    padding-bottom: 55px;
+    padding-bottom: 20px;
     text-align: start;
     background-color: rgba(0, 0, 0, 0.1);
     border-radius: 30px;
@@ -52,4 +52,5 @@
     margin-top: 20px;
     color: white;
     background-color: green;
+    border-radius: 20px;
 }
