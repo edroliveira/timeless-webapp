@@ -20,7 +20,14 @@
 <div class="global-wrapper" [ngStyle]="showContent ? {'background-color' : backgroundColor} : null">
     <div class="top-container">
         <div style="margin-bottom: 30px;">
-            <span class="reenie-beanie-regular title"> All's fair in love and poetry </span>
+            @if (pageText) {
+                <span
+                [class]="'title ' + (pageText.titleFont ? pageText.titleFont : '')"
+                [ngStyle]="pageText.titleColor ? {'color' : pageText.titleColor} : null"
+            >
+                {{ pageText.title }}
+            </span>
+            }
         </div>
 
         @if (showContent && images) {
@@ -32,7 +39,12 @@
                 <img src="assets/images/svg/heart-empty.svg" class="heart-empty-icon" />
     
                 <div class="first-paragraph">
-                    <p [ngStyle]="{'color' : pageText.textColor}"> {{ pageText.topPr }} </p>
+                    <p
+                        [ngStyle]="{'color' : pageText.textColor}"
+                        [ngClass]="pageText.textFont ? pageText.textFont : ''"
+                    >
+                        {{ pageText.topPr }}
+                    </p>
                 </div>
             </div>
         }
@@ -47,13 +59,23 @@
                 </div>
 
                 <div class="row-paragraph">
-                    <p [ngStyle]="{'color' : pageText.textColor}"> {{ pageText.firstRowPr }} </p>
+                    <p
+                        [ngStyle]="{'color' : pageText.textColor}"
+                        [ngClass]="pageText.textFont ? pageText.textFont : ''"
+                    >
+                        {{ pageText.firstRowPr }}
+                    </p>
                 </div>
             </div>
 
             <div class="row invert" id="row-2">
                 <div class="row-paragraph">
-                    <p [ngStyle]="{'color' : pageText.textColor}"> {{ pageText.secondRowPr }} </p>
+                    <p
+                        [ngStyle]="{'color' : pageText.textColor}"
+                        [ngClass]="pageText.textFont ? pageText.textFont : ''"
+                    >
+                        {{ pageText.secondRowPr }} 
+                    </p>
                 </div>
 
                 <div>
@@ -67,7 +89,12 @@
                 </div>
 
                 <div class="row-paragraph">
-                    <p [ngStyle]="{'color' : pageText.textColor}"> {{ pageText.thirdRowPr }} </p>
+                    <p
+                        [ngStyle]="{'color' : pageText.textColor}"
+                        [ngClass]="pageText.textFont ? pageText.textFont : ''"
+                    >
+                        {{ pageText.thirdRowPr }}
+                    </p>
                 </div>
             </div>
         </div>

@@ -31,11 +31,15 @@ export class FirestoreService {
     fetchParagraphs(): void {
         this.paragraphsRef.doc(this.paragraphsCollectionId).snapshotChanges().subscribe(data => {
             const pageText: PageText = new PageText(
+                data.payload.get('title'),
                 data.payload.get('topPr'),
                 data.payload.get('firstRowPr'),
                 data.payload.get('secondRowPr'),
                 data.payload.get('thirdRowPr'),
-                data.payload.get('textColor')
+                data.payload.get('titleColor'),
+                data.payload.get('textColor'),
+                data.payload.get('titleFont'),
+                data.payload.get('textFont')
             );
 
             this.$pageTextSubject.next(pageText);
@@ -87,6 +91,9 @@ export class FirestoreService {
     async updateTexts(pageText: PageText) {
         let data: Object = {};
 
+        if (pageText.title) {
+            Object.assign(data, {title: pageText.title});
+        }
         if (pageText.topPr) {
             Object.assign(data, {topPr: pageText.topPr});
         }
@@ -99,8 +106,17 @@ export class FirestoreService {
         if (pageText.thirdRowPr) {
             Object.assign(data, {thirdRowPr: pageText.thirdRowPr});
         }
+        if (pageText.titleColor) {
+            Object.assign(data, {titleColor: pageText.titleColor});
+        }
         if (pageText.textColor) {
             Object.assign(data, {textColor: pageText.textColor});
+        }
+        if (pageText.titleFont) {
+            Object.assign(data, {titleFont: pageText.titleFont});
+        }
+        if (pageText.textFont) {
+            Object.assign(data, {textFont: pageText.textFont});
         }
 
         if (Object.keys(data).length > 0) {

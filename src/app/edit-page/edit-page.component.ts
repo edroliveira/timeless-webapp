@@ -13,11 +13,19 @@ import { PageText } from '../model/page-text';
 import { FirestoreService } from '../services/firestore.service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ColorPickerModule } from 'ngx-color-picker';
+import { NgxColorsModule } from 'ngx-colors';
+import { CommonModule } from '@angular/common';
+
+interface TextFont {
+  name: string,
+  value: string
+}
 
 @Component({
   selector: 'app-edit-page',
   standalone: true,
   imports: [
+    CommonModule,
     SignupComponent,
     ReactiveFormsModule,
     MatButtonModule,
@@ -27,7 +35,7 @@ import { ColorPickerModule } from 'ngx-color-picker';
     MatInputModule,
     MatSelectModule,
     MatIconModule,
-    ColorPickerModule
+    NgxColorsModule
   ],
   templateUrl: './edit-page.component.html',
   styleUrl: './edit-page.component.css'
@@ -44,23 +52,40 @@ export class EditPageComponent implements OnInit {
 
   musicVideoId = new FormControl('');
 
+  backgroundColor = new FormControl('');
+
+  title = new FormControl('');
   topPr = new FormControl('');
   firstRowPr = new FormControl('');
   secondRowPr = new FormControl('');
   thirdRowPr = new FormControl('');
-  textColor!: string;
+  titleColor = new FormControl('');
+  textColor = new FormControl('');
+  titleFont!: string;
+  textFont!: string;
 
-  backgroundColor!: string;
+  textFontOptions: TextFont[] = [
+    { name: 'Reenie Beanie', value: 'reenie-beanie' },
+    { name: 'Raleway', value: 'raleway' },
+    { name: 'Pacifico', value: 'pacifico' },
+    { name: 'Sacramento', value: 'sacramento' },
+    { name: 'Comfortaa', value: 'comfortaa' },
+    { name: 'Madimi One', value: 'madimi-one' }
+  ];
 
   constructor(
     private firestoreService: FirestoreService
   ) {
     this.firestoreService.getPageText().subscribe(pageText => {
+      this.title.setValue(pageText.title);
       this.topPr.setValue(pageText.topPr);
       this.firstRowPr.setValue(pageText.firstRowPr);
       this.secondRowPr.setValue(pageText.secondRowPr);
       this.thirdRowPr.setValue(pageText.thirdRowPr);
-      this.textColor = pageText.textColor;
+      this.titleColor.setValue(pageText.titleColor);
+      this.textColor.setValue(pageText.textColor);
+      this.titleFont = pageText.titleFont;
+      this.textFont = pageText.textFont;
     });
 
     this.firestoreService.getMusicUrl().subscribe(musicVideoId => {
@@ -68,7 +93,7 @@ export class EditPageComponent implements OnInit {
     });
 
     this.firestoreService.getBackgroundColor().subscribe(color => {
-      this.backgroundColor = color;
+      this.backgroundColor.setValue(color);
     });
   }
 
@@ -112,8 +137,12 @@ export class EditPageComponent implements OnInit {
     };
   }
 
-  onTextColorSelected(textColor: string) {
-    this.textColor = textColor;
+  onTitleFontSelected(font: string) {
+    this.titleFont = font;
+  }
+
+  onTextFontSelected(font: string) {
+    this.textFont = font;
   }
 
   async saveChanges() {
@@ -149,11 +178,15 @@ export class EditPageComponent implements OnInit {
 
   async uploadText() {
     const pageText = new PageText(
+      this.title.value!,
       this.topPr.value!,
       this.firstRowPr.value!,
       this.secondRowPr.value!,
       this.thirdRowPr.value!,
-      this.textColor
+      this.titleColor.value!,
+      this.textColor.value!,
+      this.titleFont,
+      this.textFont
     );
 
     try {
@@ -171,7 +204,7 @@ export class EditPageComponent implements OnInit {
 
   async uploadBackgroundColor() {
     if (this.backgroundColor) {
-      await this.firestoreService.updateBackgroundColor(this.backgroundColor);
+      await this.firestoreService.updateBackgroundColor(this.backgroundColor.value!);
     }
   }
 

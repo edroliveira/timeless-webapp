@@ -1,82 +1,143 @@
 <app-signup [currentUser]="currentUser" (login)="logInWithGoogle()"></app-signup>
 
 @if (currentUser) {
-    <div class="edit-content">
-        @if (isLoading) {
-            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-        }
-
-        <h2> Música: </h2>
-        <mat-form-field appearance="fill" class="field">
-            <mat-label>Código de vídeo do YouTube</mat-label>
-            <input matInput [formControl]="musicVideoId" placeholder="Exemplo: p9d5HMNBFoE">
-        </mat-form-field>
-
-        <br /><br />
-        <h2> Cor do Plano de Fundo </h2>
-        <input [(colorPicker)]="backgroundColor" [style.background]="backgroundColor" class="color-picker" readonly />
-
-        <br /><br />
-        <h2> Imagens: </h2>
-        <div class="img-selector-wrapper">
-            <input type="file" (change)="onFileSelected($event, 'top')" class="hidden-file-selector" #mainFile>
-            <button mat-raised-button (click)="mainFile.click()" [disabled]="isLoading"> Imagem principal </button>
-            @if (topFileBlob) {
-            <img src="assets/images/svg/check.svg" alt="Check icon" class="check-icon">
-            }
+    <div class="edit-wrapper">
+        <div>
+            <div class="edit-content">
+                @if (isLoading) {
+                    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                }
+        
+                <h2> Música: </h2>
+                <mat-form-field appearance="fill" class="field">
+                    <mat-label> Código de vídeo do YouTube </mat-label>
+                    <input matInput [formControl]="musicVideoId" placeholder="Exemplo: p9d5HMNBFoE">
+                </mat-form-field>
+            </div>
+        
+            <div class="edit-content">
+                <h2>
+                    Cor do Plano de Fundo:
+                    <ngx-colors
+                        ngx-colors-trigger
+                        class="color-picker"
+                        [formControl]="backgroundColor"
+                    ></ngx-colors>
+                </h2>
+            </div>
+        
+            <div class="edit-content">
+                <h2> Imagens: </h2>
+                <div class="img-selector-wrapper">
+                    <input type="file" (change)="onFileSelected($event, 'top')" class="hidden-file-selector" #mainFile>
+                    <button mat-raised-button (click)="mainFile.click()" [disabled]="isLoading"> Imagem principal </button>
+                    @if (topFileBlob) {
+                    <img src="assets/images/svg/check.svg" alt="Check icon" class="check-icon">
+                    }
+                </div>
+                <mat-divider></mat-divider>
+                <div class="img-selector-wrapper">
+                    <input type="file" (change)="onFileSelected($event, 'first')" class="hidden-file-selector" #firstFile>
+                    <button mat-raised-button (click)="firstFile.click()" [disabled]="isLoading"> Imagem 1 </button>
+                    @if (firstFileBlob) {
+                    <img src="assets/images/svg/check.svg" alt="Check icon" class="check-icon">
+                    }
+                </div>
+                <mat-divider></mat-divider>
+                <div class="img-selector-wrapper">
+                    <input type="file" (change)="onFileSelected($event, 'second')" class="hidden-file-selector" #secondFile>
+                    <button mat-raised-button (click)="secondFile.click()" [disabled]="isLoading"> Imagem 2 </button>
+                    @if (secondFileBlob) {
+                    <img src="assets/images/svg/check.svg" alt="Check icon" class="check-icon">
+                    }
+                </div>
+                <mat-divider></mat-divider>
+                <div class="img-selector-wrapper">
+                    <input type="file" (change)="onFileSelected($event, 'third')" class="hidden-file-selector" #thirdFile>
+                    <button mat-raised-button (click)="thirdFile.click()" [disabled]="isLoading"> Imagem 3 </button>
+                    @if (thirdFileBlob) {
+                    <img src="assets/images/svg/check.svg" alt="Check icon" class="check-icon">
+                    }
+                </div>
+            </div>
         </div>
-        <mat-divider></mat-divider>
-        <div class="img-selector-wrapper">
-            <input type="file" (change)="onFileSelected($event, 'first')" class="hidden-file-selector" #firstFile>
-            <button mat-raised-button (click)="firstFile.click()" [disabled]="isLoading"> Imagem 1 </button>
-            @if (firstFileBlob) {
-            <img src="assets/images/svg/check.svg" alt="Check icon" class="check-icon">
-            }
-        </div>
-        <mat-divider></mat-divider>
-        <div class="img-selector-wrapper">
-            <input type="file" (change)="onFileSelected($event, 'second')" class="hidden-file-selector" #secondFile>
-            <button mat-raised-button (click)="secondFile.click()" [disabled]="isLoading"> Imagem 2 </button>
-            @if (secondFileBlob) {
-            <img src="assets/images/svg/check.svg" alt="Check icon" class="check-icon">
-            }
-        </div>
-        <mat-divider></mat-divider>
-        <div class="img-selector-wrapper">
-            <input type="file" (change)="onFileSelected($event, 'third')" class="hidden-file-selector" #thirdFile>
-            <button mat-raised-button (click)="thirdFile.click()" [disabled]="isLoading"> Imagem 3 </button>
-            @if (thirdFileBlob) {
-            <img src="assets/images/svg/check.svg" alt="Check icon" class="check-icon">
-            }
-        </div>
+        
+        <div>
+            <div class="edit-content">
+                <h2> Textos: </h2>
 
-        <br /><br />
-        <h2> Textos: </h2>
-        <mat-form-field appearance="outline" class="field">
-            <mat-label>Texto superior</mat-label>
-            <textarea matInput [formControl]="topPr"></textarea>
-        </mat-form-field>
-        <mat-form-field appearance="outline" class="field">
-            <mat-label>Parágrafo 1</mat-label>
-            <textarea matInput [formControl]="firstRowPr"></textarea>
-        </mat-form-field>
-        <mat-form-field appearance="outline" class="field">
-            <mat-label>Parágrafo 2</mat-label>
-            <textarea matInput [formControl]="secondRowPr"></textarea>
-        </mat-form-field>
-        <mat-form-field appearance="outline" class="field">
-            <mat-label>Parágrafo 3</mat-label>
-            <textarea matInput [formControl]="thirdRowPr"></textarea>
-        </mat-form-field>
+                <mat-form-field appearance="outline" class="field">
+                    <mat-label> Título </mat-label>
+                    <textarea matInput [formControl]="title"></textarea>
+                </mat-form-field>
 
-        <br /><br />
-        <mat-form-field>
-            <mat-label> Cor do Texto </mat-label>
-            <mat-select #textColorSelect (selectionChange)="onTextColorSelected(textColorSelect.value)">
-                <mat-option value="#000"> Preto </mat-option>
-                <mat-option value="#FFF"> Branco </mat-option>
-            </mat-select>
-        </mat-form-field>
+                <h2>
+                    Cor do Título:
+                    <ngx-colors
+                        ngx-colors-trigger
+                        class="color-picker"
+                        [formControl]="titleColor"
+                    ></ngx-colors>
+                </h2>
+
+                <mat-form-field class="field">
+                    <mat-label> Fonte do Título </mat-label>
+                    <mat-select #titleFontSelect
+                        [(value)]="titleFont"
+                        (selectionChange)="onTitleFontSelected(titleFontSelect.value)"
+                    >
+                        @for (font of textFontOptions; track $index) {
+                            <mat-option [value]="font.value">
+                                <span [class]="font.value"> {{ font.name }} </span>
+                            </mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+        
+                <mat-form-field appearance="outline" class="field">
+                    <mat-label> Texto superior </mat-label>
+                    <textarea matInput [formControl]="topPr"></textarea>
+                </mat-form-field>
+        
+                <mat-form-field appearance="outline" class="field">
+                    <mat-label> Parágrafo 1 </mat-label>
+                    <textarea matInput [formControl]="firstRowPr"></textarea>
+                </mat-form-field>
+        
+                <mat-form-field appearance="outline" class="field">
+                    <mat-label> Parágrafo 2 </mat-label>
+                    <textarea matInput [formControl]="secondRowPr"></textarea>
+                </mat-form-field>
+        
+                <mat-form-field appearance="outline" class="field">
+                    <mat-label> Parágrafo 3 </mat-label>
+                    <textarea matInput [formControl]="thirdRowPr"></textarea>
+                </mat-form-field>
+
+                <h2>
+                    Cor do Texto:
+                    <ngx-colors
+                        ngx-colors-trigger
+                        class="color-picker"
+                        [formControl]="textColor"
+                    ></ngx-colors>
+                </h2>
+        
+                <mat-form-field class="field">
+                    <mat-label> Fonte do Texto </mat-label>
+                    <mat-select #textFontSelect
+                        [(value)]="textFont"
+                        (selectionChange)="onTextFontSelected(textFontSelect.value)"
+                    >
+                        @for (font of textFontOptions; track $index) {
+                            <mat-option [value]="font.value">
+                                <span [class]="font.value"> {{ font.name }} </span>
+                            </mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
     </div>
 
     <div class="update-wrapper">

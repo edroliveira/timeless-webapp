@@ -1,6 +1,12 @@
+.edit-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 .edit-content {
     width: 300px;
-    margin: auto;
+    margin: 10px;
     margin-top: 20px;
     padding: 20px;
     padding-bottom: 20px;
@@ -15,10 +21,9 @@
 }
 
 .color-picker {
-    height: 30px;
-    border: 2px solid #a7a7a7;
-    border-radius: 10px;
-    cursor: pointer;
+    display: inline-block;
+    vertical-align: sub;
+    margin-left: 20px;
 }
 
 .img-selector-wrapper {
@@ -48,9 +53,19 @@
 }
 
 .update-btn {
+    width: 300px;
     font-size: 20px;
     margin-top: 20px;
+    margin-bottom: 40px;
+    padding: 20px;
     color: white;
     background-color: green;
-    border-radius: 20px;
+    border-radius: 30px;
+}
+
+@media only screen and (max-width: 600px) {
+    .edit-wrapper {
+        display: block;
+        text-align: -webkit-center;
+    }
 }
